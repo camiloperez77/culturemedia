@@ -1,5 +1,6 @@
 package culturemedia.service.impl;
 
+import culturemedia.exception.DurationNotValidException;
 import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.model.View;
@@ -36,5 +37,15 @@ public class CulturotecaServiceImpl implements CulturotecaService {
     @Override
     public View save(View view) {
         return viewRepository.save(view);
+    }
+
+    @Override
+    public List<Video> find(String title) throws VideoNotFoundException{
+        return videoRepository.find(title);
+    }
+
+    @Override
+    public List<Video> find(Double fromDuration, Double toDuration) throws DurationNotValidException {
+        return videoRepository.find(fromDuration, toDuration);
     }
 }

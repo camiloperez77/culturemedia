@@ -1,5 +1,6 @@
 package culturemedia.service;
 
+import culturemedia.exception.DurationNotValidException;
 import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.model.View;
@@ -53,5 +54,29 @@ class CulturotecaServiceTest {
     void when_FindAll_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
         List<Video> videos = culturotecaTestVoid.findAll();
         assertThrows(VideoNotFoundException.class, () -> {culturotecaTestVoid.findAll().isEmpty();});
+    }
+
+     @Test
+    void when_Find_a_video_and_should_be_returned_successfully() throws VideoNotFoundException {
+        List<Video> videos = culturotecaTest.find("Clic 6");
+        assertEquals(1, videos.size());
+    }
+
+        @Test
+    void when_Find_does_not_find_any_video_with_title_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
+        List<Video> videos = culturotecaTest.find("Proof 2");
+        assertThrows(VideoNotFoundException.class, () -> {culturotecaTest.find("Proof 2").isEmpty();});
+    }
+
+    @Test
+    void when_Find_a_video_on_range_of_duration_should_be_returned_successfully() throws DurationNotValidException {
+        List<Video> videos = culturotecaTest.find(5.2, 5.8);
+        assertEquals(2, videos.size());
+    }
+
+    @Test
+    void when_Find_does_not_find_any_video_with_range_of_duration_and_DurationNotFoundException_should_be_thrown_successfully() throws DurationNotValidException{
+        List<Video> videos = culturotecaTest.find(7.0, 8.0);
+        assertThrows(VideoNotFoundException.class, () -> {culturotecaTest.find(7.0, 8.0).isEmpty();});
     }
 }

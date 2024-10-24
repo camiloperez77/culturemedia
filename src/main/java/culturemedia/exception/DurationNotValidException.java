@@ -3,7 +3,7 @@ package culturemedia.exception;
 import java.text.MessageFormat;
 
 public class DurationNotValidException extends CulturotecaException {
-    public DurationNotValidException(String title, double duration) {
-        super(MessageFormat.format("Invalid duration for video: {}. Duration: {}", title, duration));
+    public DurationNotValidException(Double fromDuration, Double toDuration) {
+        super(MessageFormat.format("Invalid duration for video: {0}. Duration: {1}", fromDuration, toDuration));
     }
 }
