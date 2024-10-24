@@ -1,8 +1,8 @@
-package culturemedia.repository.impl;
+package culturemedia.service.impl;
 
 import culturemedia.model.Video;
 import culturemedia.model.View;
-import culturemedia.repository.CulturotecaService;
+import culturemedia.service.CulturotecaService;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ public class CulturotecaServiceImpl implements CulturotecaService {
     }
 
     @Override
-    public Video save(Video save) {
+    public Video add(Video save) {
         return null;
     }
 
     @Override
-    public void add(View view) {
-
+    public View add(View view) {
+        return view;
     }
 }
