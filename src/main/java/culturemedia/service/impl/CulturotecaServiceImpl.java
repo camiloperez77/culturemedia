@@ -1,24 +1,40 @@
 package culturemedia.service.impl;
 
+import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.model.View;
+import culturemedia.repository.VideoRepository;
+import culturemedia.repository.ViewsRepository;
+import culturemedia.repository.impl.VideoRepositoryImpl;
+import culturemedia.repository.impl.ViewsRepositoryImpl;
 import culturemedia.service.CulturotecaService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CulturotecaServiceImpl implements CulturotecaService {
-    @Override
-    public List<Video> findAll() {
-        return List.of();
+
+    private List<Video> videos = new ArrayList<>();
+    VideoRepository videoRepository;
+    ViewsRepository viewRepository;
+
+    public CulturotecaServiceImpl(VideoRepository videoRepository, ViewsRepository viewRepository ) {
+        this.videoRepository = new VideoRepositoryImpl();
+        this.viewRepository = new ViewsRepositoryImpl();
     }
 
     @Override
-    public Video add(Video save) {
-        return null;
+    public List<Video> findAll() throws VideoNotFoundException {
+        return  videoRepository.findAll();
     }
 
     @Override
-    public View add(View view) {
-        return view;
+    public Video save(Video video) {
+        return videoRepository.save(video);
+    }
+
+    @Override
+    public View save(View view) {
+        return viewRepository.save(view);
     }
 }

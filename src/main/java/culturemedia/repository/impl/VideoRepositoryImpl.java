@@ -3,6 +3,7 @@ package culturemedia.repository.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.repository.VideoRepository;
 
@@ -15,7 +16,10 @@ public class VideoRepositoryImpl implements VideoRepository {
 	}
 
 	@Override
-	public List<Video> findAll() {
+	public List<Video> findAll() throws VideoNotFoundException {
+		if (videos.isEmpty()) {
+			throw new VideoNotFoundException();
+		}
 		return videos;
 	}
 
