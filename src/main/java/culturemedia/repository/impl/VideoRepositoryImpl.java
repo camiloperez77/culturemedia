@@ -17,10 +17,8 @@ public class VideoRepositoryImpl implements VideoRepository {
 	}
 
 	@Override
-	public List<Video> findAll() throws VideoNotFoundException {
-		if (videos.isEmpty()) {
-			throw new VideoNotFoundException();
-		}
+	public List<Video> findAll() {
+
 		return videos;
 	}
 
@@ -31,30 +29,26 @@ public class VideoRepositoryImpl implements VideoRepository {
 	}
 
 	@Override
-	public List<Video> find(String title) throws VideoNotFoundException {
+	public List<Video> find(String title)  {
 		List<Video> filteredVideos = new ArrayList<Video>();
 		for ( Video video : videos ) {
 			if(video.title().contains(title)){
 				filteredVideos.add(video);
 			}
 		}
-		if(filteredVideos.isEmpty()){
-					throw new VideoNotFoundException(title);
-				}
+
 		return filteredVideos;
 	}
 
 	@Override
-	public List<Video> find(Double fromDuration, Double toDuration) throws DurationNotValidException {
+	public List<Video> find(Double fromDuration, Double toDuration) {
 		List<Video> filteredVideos = new ArrayList<Video>();
 		for ( Video video : videos ) {
 			if(video.duration()>= fromDuration && video.duration()<= toDuration){
 				filteredVideos.add(video);
 			}
 		}
-		if(filteredVideos.isEmpty()){
-					throw new DurationNotValidException(fromDuration, toDuration);
-				}
+
 		return filteredVideos;
 	}
 }

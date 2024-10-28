@@ -18,15 +18,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 class CulturotecaServiceTest {
 
-    private VideoRepository videoRepository;
-    private ViewsRepository viewRepository;
+
     private CulturotecaService culturotecaTest;
     private CulturotecaService culturotecaTestVoid;
 
     @BeforeEach
     void init() {
-        culturotecaTest = new CulturotecaServiceImpl(videoRepository, viewRepository);
-        culturotecaTestVoid = new CulturotecaServiceImpl(videoRepository, viewRepository);
+        culturotecaTest = new CulturotecaServiceImpl(new VideoRepositoryImpl(), new ViewsRepositoryImpl());
+        culturotecaTestVoid = new CulturotecaServiceImpl(new VideoRepositoryImpl(), new ViewsRepositoryImpl());
 
         List<Video> videos = List.of(new Video("01", "Título 1", "----", 4.5),
                 new Video("02", "Título 2", "----", 5.5),
@@ -52,8 +51,7 @@ class CulturotecaServiceTest {
 
     @Test
     void when_FindAll_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
-        List<Video> videos = culturotecaTestVoid.findAll();
-        assertThrows(VideoNotFoundException.class, () -> {culturotecaTestVoid.findAll().isEmpty();});
+        assertThrows(VideoNotFoundException.class, () -> {culturotecaTestVoid.findAll();});
     }
 
      @Test
@@ -64,8 +62,7 @@ class CulturotecaServiceTest {
 
         @Test
     void when_Find_does_not_find_any_video_with_title_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
-        List<Video> videos = culturotecaTest.find("Proof 2");
-        assertThrows(VideoNotFoundException.class, () -> {culturotecaTest.find("Proof 2").isEmpty();});
+        assertThrows(VideoNotFoundException.class, () -> {culturotecaTest.find("Proof 2");});
     }
 
     @Test
@@ -76,7 +73,6 @@ class CulturotecaServiceTest {
 
     @Test
     void when_Find_does_not_find_any_video_with_range_of_duration_and_DurationNotFoundException_should_be_thrown_successfully() throws DurationNotValidException{
-        List<Video> videos = culturotecaTest.find(7.0, 8.0);
-        assertThrows(VideoNotFoundException.class, () -> {culturotecaTest.find(7.0, 8.0).isEmpty();});
+        assertThrows(DurationNotValidException.class, () -> {culturotecaTest.find(7.0, 8.0);});
     }
 }
