@@ -15,18 +15,21 @@ import java.util.List;
 
 public class CulturotecaServiceImpl implements CulturotecaService {
 
-    private List<Video> videos = new ArrayList<>();
     VideoRepository videoRepository;
     ViewsRepository viewRepository;
 
     public CulturotecaServiceImpl(VideoRepository videoRepository, ViewsRepository viewRepository ) {
-        this.videoRepository = new VideoRepositoryImpl();
-        this.viewRepository = new ViewsRepositoryImpl();
+        this.videoRepository = videoRepository;
+        this.viewRepository = viewRepository;
     }
 
     @Override
     public List<Video> findAll() throws VideoNotFoundException {
-        return  videoRepository.findAll();
+        List<Video> videos = videoRepository.findAll();
+        	if (videos.isEmpty()) {
+			throw new VideoNotFoundException();
+		}
+        return  videos;
     }
 
     @Override
@@ -41,11 +44,19 @@ public class CulturotecaServiceImpl implements CulturotecaService {
 
     @Override
     public List<Video> find(String title) throws VideoNotFoundException{
-        return videoRepository.find(title);
+        List<Video> videos = videoRepository.find(title);
+        if(videos.isEmpty()){
+					throw new VideoNotFoundException(title);
+				}
+        return videos;
     }
 
     @Override
     public List<Video> find(Double fromDuration, Double toDuration) throws DurationNotValidException {
-        return videoRepository.find(fromDuration, toDuration);
+        List<Video> videos = videoRepository.find(fromDuration, toDuration);
+                if(videos.isEmpty()){
+					throw new DurationNotValidException(fromDuration, toDuration);
+				}
+        return videos;
     }
 }
