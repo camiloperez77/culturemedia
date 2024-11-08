@@ -1,7 +1,4 @@
 package culturemedia.repository;
-
-import culturemedia.exception.DurationNotValidException;
-import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 
 import java.util.List;
